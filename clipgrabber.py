@@ -6,6 +6,7 @@ import time
 from dateutil.parser import parse
 import datetime
 import pytz
+import urllib.request
 
 from dotenv import load_dotenv
 
@@ -33,6 +34,7 @@ def friendsXUIDList():
 
 for f in friendsXUIDList():
     if f['xuid'] == "2535437729137168":
+      
       print(f['xuid'])
       clipsURL = "https://xapi.us/api/"+f['xuid']+"/alternative-game-clips"
 
@@ -55,9 +57,11 @@ for f in friendsXUIDList():
         print("Clip ID: " + c['clipId'])
         print("URL: " + c['gameMediaContentLocators'][0]['Uri'])
         print("Directory:" + w_dir ,"\n")
-        if c['clipId'] == "fc5a843d-8d9a-4b4d-8089-71ac35f7668a":
-          import urllib.request 
-          urllib.request.urlretrieve(c['gameMediaContentLocators'][0]['Uri'], filename)
+        if c['clipId'] == "00358c5f-370e-4e50-8df6-9f96b30c05b2":
+          #os.mkdir(w_dir+"/clips/"+c['authorInfo']['modernGamertag'])
+          fileName = w_dir+"/clips/"+c['authorInfo']['modernGamertag']+"/"+c['clipId']+".mp4"
+          print("Filename: "+fileName)
+          urllib.request.urlretrieve(c['gameMediaContentLocators'][0]['Uri'], fileName)
 
       time.sleep(15)
     # for c in clipsJSON:
