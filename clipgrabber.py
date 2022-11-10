@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('XAPI_TOKEN')
+w_dir = os.getcwd()
 
 payload={}
 headers = {
@@ -52,8 +53,8 @@ for f in friendsXUIDList():
         #print("Date Recorded: " + c['dateRecorded'])
         print("Date Recorded: " + dateRecordedCST.strftime('%m-%d-%y %I:%M:%S'))
         print("Clip ID: " + c['clipId'])
-        print("URL: " + c['gameMediaContentLocators'][0]['Uri'],"\n")
-        
+        print("URL: " + c['gameMediaContentLocators'][0]['Uri'])
+        print("Directory:" + w_dir ,"\n")
 
       time.sleep(15)
     # for c in clipsJSON:
