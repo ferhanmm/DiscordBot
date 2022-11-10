@@ -59,7 +59,7 @@ for f in friendsXUIDList():
         print("Clip ID: " + c['clipId'])
         print("URL: " + c['gameMediaContentLocators'][0]['Uri'])
         print("Directory:" + w_dir ,"\n")
-        if c['clipId'] == "d32ee380-cc65-434c-a780-fe92853631cb":
+        if c['clipId'] == "d32ee380-cc65-434c-a780-fe92853631cb" or c['clipId'] == "993f04f0-ac89-45bb-8218-de764e3e28d3":
           gamerFolder = w_dir+"/clips/"+c['authorInfo']['modernGamertag']
           if not os.path.exists(gamerFolder):
             os.makedirs(gamerFolder)
