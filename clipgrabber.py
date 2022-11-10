@@ -55,6 +55,9 @@ for f in friendsXUIDList():
         print("Clip ID: " + c['clipId'])
         print("URL: " + c['gameMediaContentLocators'][0]['Uri'])
         print("Directory:" + w_dir ,"\n")
+        if c['clipId'] == "fc5a843d-8d9a-4b4d-8089-71ac35f7668a":
+          import urllib.request 
+          urllib.request.urlretrieve(c['gameMediaContentLocators'][0]['Uri'], filename)
 
       time.sleep(15)
     # for c in clipsJSON:
