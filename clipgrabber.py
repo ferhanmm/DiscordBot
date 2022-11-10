@@ -7,6 +7,7 @@ from dateutil.parser import parse
 import datetime
 import pytz
 import urllib.request
+import calendar
 
 from dotenv import load_dotenv
 
@@ -54,14 +55,23 @@ for f in friendsXUIDList():
         print("Game: " + c['contentTitle'])
         #print("Date Recorded: " + c['dateRecorded'])
         print("Date Recorded: " + dateRecordedCST.strftime('%m-%d-%y %I:%M:%S'))
+        print("Epoch: " + dateRecordedCST.strftime('%s'))
         print("Clip ID: " + c['clipId'])
         print("URL: " + c['gameMediaContentLocators'][0]['Uri'])
         print("Directory:" + w_dir ,"\n")
-        if c['clipId'] == "00358c5f-370e-4e50-8df6-9f96b30c05b2":
-          #os.mkdir(w_dir+"/clips/"+c['authorInfo']['modernGamertag'])
-          fileName = w_dir+"/clips/"+c['authorInfo']['modernGamertag']+"/"+c['clipId']+".mp4"
+        if c['clipId'] == "d32ee380-cc65-434c-a780-fe92853631cb":
+          gamerFolder = w_dir+"/clips/"+c['authorInfo']['modernGamertag']
+          if not os.path.exists(gamerFolder):
+            os.makedirs(gamerFolder)
+          gameFolder = w_dir+"/clips/"+c['authorInfo']['modernGamertag']+"/"+c['contentTitle']
+          if not os.path.exists(gameFolder):
+            os.makedirs(gameFolder)
+          fileName = w_dir+"/clips/"+c['authorInfo']['modernGamertag']+"/"+c['contentTitle']+"/"+c['clipId']+".mp4"
           print("Filename: "+fileName)
-          urllib.request.urlretrieve(c['gameMediaContentLocators'][0]['Uri'], fileName)
+          if not os.path.exists(fileName):
+            urllib.request.urlretrieve(c['gameMediaContentLocators'][0]['Uri'], fileName)
+            #os.utime(fileName, (calendar.timegm(dateRecordedCST.timetuple()), calendar.timegm(dateRecordedCST.timetuple())))
+            os.utime(fileName, (int(dateRecordedCST.strftime('%s')),int(dateRecordedCST.strftime('%s'))))
 
       time.sleep(15)
     # for c in clipsJSON:
